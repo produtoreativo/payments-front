@@ -1,4 +1,6 @@
+
 import React from 'react';
+
 import { Provider } from 'react-redux'
 import { createBrowserHistory } from 'history';
 import { applyMiddleware, createStore } from 'redux';
@@ -26,9 +28,9 @@ function configureAppStore() {
 }
 
 export default function Store(props) {
-  const store = configureAppStore();
+
   return (
-    <Provider store={store}>
+    <Provider store={configureAppStore()}>
       {props.children}
     </Provider>
   )
