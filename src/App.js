@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { ThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { ConnectedRouter } from 'connected-react-router';
+import { Switch } from 'react-router-dom';
+import Store, { browserHistory } from './base/Store';
+import theme from './base/Theme';
+import Layout from './views/Layout';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Store>
+        <ThemeProvider theme={theme}>
+        <CssBaseline />
+          <ConnectedRouter history={browserHistory}>
+            <Switch>
+              <Layout />
+            </Switch>
+          </ConnectedRouter>
+        </ThemeProvider>
+      </Store>
     </div>
   );
 }
