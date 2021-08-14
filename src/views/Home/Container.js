@@ -1,25 +1,44 @@
-import { connect } from 'react-redux';
+import React from 'react';
+import { bindActionCreators } from 'redux';
+import { useStore, useSelector, useDispatch } from 'react-redux';
 import Home from './Home';
-import reducer from './redux/reducer';
+import reducer from './redux/reducer'; 
+import watchSearch from './redux/sagas/search';
 
-const mapStateToProps = state => {
-  return {
-    data: state.payments,
-  }
-}
+const mapStateToProps = ({payments}) => payments;
 
-const mapDispatchToProps = dispatch => {
+function find(payload) {
   return {
-    find: (payload) => {
-      dispatch({
-        type: 'SEARCH',
-        payload, 
-        meta: {
-          reducer,
-        }
-      })
+    type: 'SEARCH',
+    payload, 
+    meta: {
+      reducer,
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+function Container(props) {
+  const store = useStore();
+  const [task, setTask] = React.useState(null);
+  const payments = useSelector(mapStateToProps);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    console.log('componentDidMount', store);
+    setTask(store.runSaga(watchSearch));
+    return () => {
+      console.log('componentWillUnmount');
+      if(task) {
+        console.log('o que eh task', task)
+        task.cancel();
+      }
+    };
+  }, []);
+  //debugger 
+  console.log( store.getState().payments )
+  return (
+    <Home {...props} payments={payments} {...bindActionCreators({ find }, dispatch)} />
+  )
+}
+
+export default Container;
