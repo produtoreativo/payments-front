@@ -8,6 +8,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { routerMiddleware } from 'connected-react-router';
 import createSagaMiddleware from 'redux-saga';
 import createReducer from './RootReducer';
+import rootSaga from './sagas';
 
 export const browserHistory = createBrowserHistory();
 
@@ -19,6 +20,8 @@ function configureAppStore() {
   const composed = composeEnhancers(applyMiddleware(...middlewares));
   const reducer = createReducer(browserHistory)
   const store = createStore(reducer, composed);
+
+  sagaMiddleware.run(rootSaga);
 
   return {
     ...store,

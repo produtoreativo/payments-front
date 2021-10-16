@@ -1,5 +1,6 @@
 import { Redirect } from "react-router-dom";
 import HomeRoutes from './Home/HomeRoutes';
+import InvoiceRoutes from './Invoice/InvoiceRoutes';
 
 const redirectRoute = [
   {
@@ -11,6 +12,7 @@ const redirectRoute = [
 
 const routes = [
   ...HomeRoutes,
+  ...InvoiceRoutes,
   ...redirectRoute,
 ];
 

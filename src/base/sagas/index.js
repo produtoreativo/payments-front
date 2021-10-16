@@ -1,7 +1,6 @@
 import { fork } from 'redux-saga/effects';
-
-import watchSearch from './payments/search';
+import watchAnalytics from './analytics';
 
 export default function* rootSaga() {
-  yield fork(watchSearch);
+  yield fork(watchAnalytics);
 }

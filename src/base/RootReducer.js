@@ -4,6 +4,12 @@ const initialState = {
   layout: null, 
   user: null,
   payments: [],
+  invoice: {
+    name: '',
+    amount: 0,
+    taxId: '',
+    orderId: ''
+  },
 }
 
 export default function createReducer(history) {
