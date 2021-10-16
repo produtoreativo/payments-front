@@ -2,20 +2,11 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { useStore, useSelector, useDispatch } from 'react-redux';
 import Home from './Home';
-import reducer from './redux/reducer'; 
+
 import watchSearch from './redux/sagas/search';
+import { find } from './redux/actions';
 
 const mapStateToProps = ({payments}) => payments;
-
-function find(payload) {
-  return {
-    type: 'SEARCH',
-    payload, 
-    meta: {
-      reducer,
-    }
-  }
-}
 
 function Container(props) {
   const store = useStore();
