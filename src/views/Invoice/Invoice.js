@@ -1,29 +1,16 @@
-import React from 'react';
-import {
-  Box,
-  TextField,
-  Button,
-} from '@material-ui/core';
+import React from "react";
+import { Box, TextField, Button } from "@material-ui/core";
 
-function Invoice({
-  invoice,
-  updateInvoice,
-  createInvoice,
-}) {
-
+function Invoice({ invoice, updateInvoice, createInvoice, gotoPayments }) {
   const onChange = (event) => {
     const { name, value } = event.target;
-    updateInvoice({ 
-      [name]: value 
-    })
-  }
+    updateInvoice({
+      [name]: value,
+    });
+  };
 
   return (
-    <Box
-      component="form"
-      noValidate
-      autoComplete="off"
-    >
+    <Box component="form" noValidate autoComplete="off">
       <div>
         <TextField
           required
@@ -31,7 +18,7 @@ function Invoice({
           name="name"
           value={invoice.name}
           InputLabelProps={{
-            shrink: true
+            shrink: true,
           }}
           onChange={onChange}
         />
@@ -41,7 +28,7 @@ function Invoice({
           name="taxId"
           value={invoice.taxId}
           InputLabelProps={{
-            shrink: true
+            shrink: true,
           }}
           onChange={onChange}
         />
@@ -51,7 +38,7 @@ function Invoice({
           name="orderId"
           value={invoice.orderId}
           InputLabelProps={{
-            shrink: true
+            shrink: true,
           }}
           onChange={onChange}
         />
@@ -61,14 +48,21 @@ function Invoice({
           name="amount"
           value={invoice.amount}
           InputLabelProps={{
-            shrink: true
+            shrink: true,
           }}
           onChange={onChange}
         />
-        <Button onClick={createInvoice}>Criar</Button>
+        <Button
+          onClick={() => {
+            createInvoice(invoice);
+            gotoPayments();
+          }}
+        >
+          Criar
+        </Button>
       </div>
     </Box>
-  )
+  );
 }
 
 export default Invoice;
